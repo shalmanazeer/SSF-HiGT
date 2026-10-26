@@ -1,0 +1,40 @@
+# Hyperparameters from Table 3 of the paper
+model:
+  num_features: 78          # set per-dataset (e.g., 78 for CICIDS-2017 flow features)
+  num_classes: 8             # set per-dataset
+  d_model: 256
+  transformer:
+    num_heads: 8
+    num_layers: 6
+    dropout: 0.15
+    max_seq_len: 32
+  gat:
+    num_layers: 3
+    num_heads: 4
+    dropout: 0.15
+    edge_dim: 16
+
+training:
+  learning_rate: 1.0e-4
+  lr_scheduler: cosine_annealing
+  batch_size: 256
+  local_epochs: 5
+  federated_rounds: 100
+
+loss_weights:
+  lambda_mask: 1.0        # λ1
+  lambda_contrast: 0.5    # λ2
+  lambda_graph: 0.1       # λ3
+  lambda_reg: 1.0e-5      # λ4
+  lambda_fed: 0.01        # λ5
+
+self_supervised:
+  masking_ratio: 0.30      # ρ
+  nt_xent_temperature: 0.07 # τ
+
+graph:
+  knn_k: 7
+
+federated_aggregation:
+  alpha: 0.5   # dataset-size weighting exponent
+  beta: 5.0    # cosine-similarity weighting sharpness
